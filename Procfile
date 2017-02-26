@@ -1,1 +1,1 @@
-web: (python -m http.server $PORT &) && (python burnsbot.py)
+web: (python -m http.server $PORT &) && (python burnsbot.py) && 

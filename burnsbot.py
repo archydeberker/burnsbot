@@ -1,13 +1,39 @@
+# Archy de Berker, ASI Data Science, January 2017
+# Slack Bot code based on tutorial here: 
+
 import os,json, re
 import time
 from slackclient import SlackClient
 import markovify
 
-###########  Functions for poem generation ###########
+## Functions to run upon initialisation
+
+# Load up saved model
+markov_model = load_model()
+
+# Make the connection to Slack when function is called from command line
+if __name__ == "__main__":
+	READ_WEBSOCKET_DELAY = 1 # 1 second delay between reading from firehose
+	if slack_client.rtm_connect():
+		print("StarterBot connected and running!")
+		while True:
+			command, channel = parse_slack_output(slack_client.rtm_read())
+			if command and channel:
+				handle_command(command, channel)
+			time.sleep(READ_WEBSOCKET_DELAY)
+	else:
+		print("Connection failed. Invalid Slack token or bot ID?")
+
+
+
+### Functions for poem generation ###
+
 def load_model():
 	"""
 	Load the markov chain model for text generation. 
 	Should be called at startup.
+
+	Returns: markov_model (trained model)
 	"""
 	with open('./markov_model.json', 'r') as f:
 		model_json = json.load(f)
@@ -16,6 +42,12 @@ def load_model():
 	return markov_model
 
 def write_poem(n_lines):
+	"""
+	Generates a poem of a specified number of lines.
+
+	Inputs: n_lines
+	Returns: poem (a list of lines)"""
+
 	poem = []
 
 	for line in range(n_lines):
@@ -23,6 +55,12 @@ def write_poem(n_lines):
 	return poem
 
 def new_line():
+	""" 
+	Draws a new line from the markov model
+
+	Returns: a line
+
+	"""
 	l = markov_model.make_short_sentence(60)
 	if l!=None:
 		return l
@@ -31,25 +69,29 @@ def new_line():
 		return l
 
 def print_poem(poem):
+	"""
+	Prints a given poem, with a new line for each line.
+
+	Inputs: poem (list of lines)
+	"""
 	return '\n'.join(poem)
 
 
 
-########### Setup for Slack bot ###########
+### Setup for Slack bot ###
 
 # burnsbot's ID as an environment variable
 BOT_ID = os.environ.get("BOT_ID")
 
 # constants
 AT_BOT = "<@" + BOT_ID + ">"
-EXAMPLE_COMMAND = "write"
+EXAMPLE_COMMAND = "write" # command to which the bot responds
 
 # instantiate Slack & Twilio clients
 slack_client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
 
 
-########### Functions for parsing Slack output ##########
-
+### Functions for parsing Slack output ###
 
 def handle_command(command, channel):
 	"""
@@ -89,21 +131,3 @@ def parse_slack_output(slack_rtm_output):
 				output['channel']
 	return None, None
 
-
-
-
-# Load up saved model
-markov_model = load_model()
-
-# Make the connection to Slack
-if __name__ == "__main__":
-	READ_WEBSOCKET_DELAY = 1 # 1 second delay between reading from firehose
-	if slack_client.rtm_connect():
-		print("StarterBot connected and running!")
-		while True:
-			command, channel = parse_slack_output(slack_client.rtm_read())
-			if command and channel:
-				handle_command(command, channel)
-			time.sleep(READ_WEBSOCKET_DELAY)
-	else:
-		print("Connection failed. Invalid Slack token or bot ID?")
