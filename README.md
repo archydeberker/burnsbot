@@ -34,5 +34,5 @@ A similar framework could be used to provide a bot modelled on your favourite au
 
 Much of the Slackbot code comes from this [blogpost](https://www.fullstackpython.com/blog/build-first-slack-bot-python.html) and the associated [github repo](https://github.com/mattmakai/slack-starterbot).
 
-I am indebted to [Alberto Favaro] https://github.com/albertofavaro for the idea and for providing a Burns corpus in JSON form. Thanks to [ASI Data Science](https://www.asidatascience.com) for hosting the Burns night event.
+I am indebted to [Alberto Favaro](https://github.com/albertofavaro) for the idea and for providing a Burns corpus in JSON form. Thanks to [ASI Data Science](https://www.asidatascience.com) for hosting the Burns night event.
 
