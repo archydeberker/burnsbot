@@ -25,6 +25,11 @@ In order for your bot to respond to a Slack message, it must be permanently runn
 
 Alternatively, if you already have a Python equipped server you can host your bot there. Our Burns bot is hosted on the ASI data science platform, [Sherlock ML](https://www.sherlockml.com).
 
+## Bot behaviour
+
+Currently, the bot is limited to responding to messages in which it is tagged (@burnsbot), including the command 'write' and a number. It will respond with the specified number of lines of Burns-esque poetry. 
+
+More sophisticated behaviours might include writing acrostics to trace out specific words (by specifying the first letter of each line), 'poems of the day' produced on a schedule, or semi-relevant injection of Burnsesque poetry into ongoing conversations between other Slack users.
 
 ## Other ideas
 
