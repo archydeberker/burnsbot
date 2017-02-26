@@ -23,7 +23,7 @@ To install the dependencies required to run this package, simply run
 
 In order for your bot to respond to a Slack message, it must be permanently running on a server. You can use Heroku - the project includes a Profile suitable for use on a Heroku instance - but you will need to find a way of keeping the instance awake, as merely messaging the bot will not suffice. I used a ping service provided by the add-on [New Relic](https://elements.heroku.com/addons/newrelic).
 
-Alternatively, if you already have a Python equipped server you can host your bot there. Our Burns bot is hosted on the ASI data science platform, [Sherlock ML](www.sherlockml.com).
+Alternatively, if you already have a Python equipped server you can host your bot there. Our Burns bot is hosted on the ASI data science platform, [Sherlock ML](https://www.sherlockml.com).
 
 
 ## Other ideas
